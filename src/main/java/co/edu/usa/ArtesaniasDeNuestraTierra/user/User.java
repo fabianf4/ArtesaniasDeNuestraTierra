@@ -5,6 +5,10 @@ import jakarta.persistence.Basic;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,12 +24,13 @@ public class User {
     private int id;
 
     @Column(unique = true)
-    @NonNull
+    @NotBlank(message = "El email es requerido")
+    @Email(message = "El email debe ser válido")
     private String email;
 
-    @NonNull
+    @NotBlank(message = "La contraseña es requerida")
     private String password;
 
-    @NonNull
+    @NotBlank(message = "El nombre es requerido")
     private String name;
 }

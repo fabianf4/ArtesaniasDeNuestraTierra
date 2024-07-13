@@ -28,9 +28,14 @@ public class SecurityConfig {
         .authorizeHttpRequests( auth -> {
                 auth.requestMatchers("/api/health").permitAll();
                 auth.requestMatchers("/api/user/signup").permitAll();
+                auth.requestMatchers("/error/**").permitAll();
                 auth.anyRequest().authenticated();
             } 
-            ).formLogin(form -> form.disable())
+            )
+        .logout(logout -> 
+            logout.logoutUrl("/api/user/logout")
+        )
+        .formLogin(form -> form.disable())
         .httpBasic(Customizer.withDefaults());
 
         return httpSecurity.build();

@@ -13,9 +13,9 @@ public class UserService implements UserDetailsService{
     @Autowired
     private UserRepository userRepository;
 
-    public void createUser(User user){
+    public User createUser(User user){
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 
     @Override
