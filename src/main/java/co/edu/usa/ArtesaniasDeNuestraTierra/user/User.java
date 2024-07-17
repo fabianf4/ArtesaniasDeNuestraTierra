@@ -1,36 +1,41 @@
 package co.edu.usa.ArtesaniasDeNuestraTierra.user;
 
-import io.micrometer.common.lang.Nullable;
-import jakarta.persistence.Basic;
+import java.util.Date;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Builder
+@Entity(name = "users")
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(unique = true)
-    @NotBlank(message = "El email es requerido")
-    @Email(message = "El email debe ser válido")
-    private String email;
+    private String phone;
 
-    @NotBlank(message = "La contraseña es requerida")
     private String password;
 
-    @NotBlank(message = "El nombre es requerido")
     private String name;
+
+    @Column(name = "state_delete")
+    private boolean stateDelete;
+
+    @Column(name = "date_create")
+    private Date dateCreate;
+
+    @Column(name = "date_update")
+    private Date dateUpdate;
 }

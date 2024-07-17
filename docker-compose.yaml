@@ -4,8 +4,11 @@ services:
     image: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: test
-      MYSQL_USER: test
-      MYSQL_PASSWORD: test
+      MYSQL_DATABASE: crafts
+      MYSQL_USER: crafts
+      MYSQL_PASSWORD: crafts 
     ports:
       - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+
