@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CategoryService {
 	
 	@Autowired
@@ -15,7 +17,7 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    public Category getCategoryPorId(int id) {
+    public Category getCategoryById(int id) {
         return categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
     }

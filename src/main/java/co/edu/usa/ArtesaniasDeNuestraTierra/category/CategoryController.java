@@ -26,7 +26,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public Category getCategoryPorId(@PathVariable("id") int id) {
-        return categoryService.getCategoryPorId(id);
+        return categoryService.getCategoryById(id);
     }
 
     @PostMapping("/")
@@ -35,13 +35,13 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public Category actualizarCategoria(@PathVariable("id") int id, @RequestBody Category categoriaActualizada) {
-        return categoryService.updateCategory(id, categoriaActualizada);
+    public Category UpdateCategory(@PathVariable("id") int id, @RequestBody Category categoryUpdate) {
+        return categoryService.updateCategory(id, categoryUpdate);
     }
 
     @DeleteMapping("/delete")
-    public void eliminarCategoria(@PathVariable("category") Category categoria) {
-    	categoryService.deleteCategory(categoria);
+    public void deleteCategory(@PathVariable("category") Category category) {
+    	categoryService.deleteCategory(category);
     }
 
 }
