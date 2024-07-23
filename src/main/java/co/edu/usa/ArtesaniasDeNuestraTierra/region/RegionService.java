@@ -3,6 +3,7 @@ package co.edu.usa.ArtesaniasDeNuestraTierra.region;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,9 @@ public class RegionService {
     }
 
     public Region saveRegion(Region region) {
+    	region.setStateDelete(false);
+        region.setDateCreate(new Date());
+        region.setDateUpdate(new Date());
         return regionRepository.save(region);
     }
 
@@ -33,7 +37,6 @@ public class RegionService {
             updatedRegion.setStateDelete(region.isStateDelete());
             updatedRegion.setDateCreate(region.getDateCreate());
             updatedRegion.setDateUpdate(region.getDateUpdate());
-            updatedRegion.setCities(region.getCities());
             return regionRepository.save(updatedRegion);
         } else {
             throw new RuntimeException("Region not found with id " + region.getId());

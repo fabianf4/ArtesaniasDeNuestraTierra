@@ -1,5 +1,6 @@
 package co.edu.usa.ArtesaniasDeNuestraTierra.city;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,9 @@ public class CityService
 
     public City saveCity(City city)
     {
+    	city.setStateDelete(false);
+    	city.setDateCreate(new Date());
+        city.setDateUpdate(new Date());
         return cityRepository.save(city);
     }
 
@@ -35,7 +39,6 @@ public class CityService
             updatedCity.setStateDelete(city.isStateDelete());
             updatedCity.setDateCreate(city.getDateCreate());
             updatedCity.setDateUpdate(city.getDateUpdate());
-            updatedCity.setRegion(city.getRegion());
             return cityRepository.save(updatedCity);
         } else {
             throw new RuntimeException("City not found with id " + city.getId());

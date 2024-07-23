@@ -41,7 +41,4 @@ public class Region
 
     @Column(name = "date_update", nullable = false)
     private Date dateUpdate;
-    
-    @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<City> cities;
 }
