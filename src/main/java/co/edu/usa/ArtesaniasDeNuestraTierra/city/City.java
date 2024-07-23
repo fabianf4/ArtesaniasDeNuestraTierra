@@ -16,23 +16,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "cities")
+@Entity(name = "city")
 public class City
 {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 	
-	@Column(name = "state_delete")
+	@Column(name = "state_delete", nullable = false)
     private boolean stateDelete;
 
-    @Column(name = "date_create")
+    @Column(name = "date_create", nullable = false)
     private Date dateCreate;
 
-    @Column(name = "date_update")
+    @Column(name = "date_update", nullable = false)
     private Date dateUpdate;
 
 }
