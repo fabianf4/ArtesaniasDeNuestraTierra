@@ -27,8 +27,7 @@ public class CityService
         return cityRepository.save(city);
     }
 
-    public City updateCity(City city)
-    {
+    public City updateCity(City city) {
         Optional<City> existingCity = cityRepository.findById(city.getId());
         if (existingCity.isPresent()) {
             City updatedCity = existingCity.get();
@@ -36,6 +35,7 @@ public class CityService
             updatedCity.setStateDelete(city.isStateDelete());
             updatedCity.setDateCreate(city.getDateCreate());
             updatedCity.setDateUpdate(city.getDateUpdate());
+            updatedCity.setRegion(city.getRegion());
             return cityRepository.save(updatedCity);
         } else {
             throw new RuntimeException("City not found with id " + city.getId());

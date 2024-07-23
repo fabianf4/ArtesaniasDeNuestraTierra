@@ -23,38 +23,38 @@ public class CityController
     private CityService cityService;
 
     @GetMapping
-    public ResponseEntity<List<City>> getAllCities() {
-        List<City> cities = cityService.getAllCities();
-        return new ResponseEntity<>(cities, HttpStatus.OK);
+    public List<City> getAllCities() {
+        return cityService.getAllCities();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<City> getCityById(@PathVariable int id) {
         Optional<City> city = cityService.getCityById(id);
-        return city.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                   .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        if (city.isPresent()) {
+            return ResponseEntity.ok(city.get());
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public ResponseEntity<City> saveCity(@RequestBody City city) {
-        City savedCity = cityService.saveCity(city);
-        return new ResponseEntity<>(savedCity, HttpStatus.CREATED);
+    public City saveCity(@RequestBody City city) {
+        return cityService.saveCity(city);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<City> updateCity(@PathVariable int id, @RequestBody City city) {
         city.setId(id);
         try {
-            City updatedCity = cityService.updateCity(city);
-            return new ResponseEntity<>(updatedCity, HttpStatus.OK);
+            return ResponseEntity.ok(cityService.updateCity(city));
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCity(@PathVariable int id) {
         cityService.deleteCity(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
 }
