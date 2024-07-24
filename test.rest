@@ -1,8 +1,8 @@
-### Login request
+### Test request
 GET http://localhost:8080/api/health
 Content-Type: application/json
 
-### Login request
+### Test request
 GET http://localhost:8080/api/health/secure
 Content-Type: application/json
 Authorization: Basic test test

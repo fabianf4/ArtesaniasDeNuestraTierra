@@ -13,13 +13,4 @@ services:
       - ./mysql_data:/var/lib/mysql
       - ./DB.sql:/docker-entrypoint-initdb.d/init.sql
 
-  api-spring-boot:
-    build: ./
-    environment:
-      - DB_URL=jdbc:mysql://mysql:3306/crafts
-      - DB_USERNAME=crafts
-      - DB_PASSWORD=crafts
-    ports:
-      - 8080:8080
-    depends_on:
-      - mysql
+
