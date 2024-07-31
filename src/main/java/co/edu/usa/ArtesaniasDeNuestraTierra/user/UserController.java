@@ -1,19 +1,22 @@
 package co.edu.usa.ArtesaniasDeNuestraTierra.user;
 
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import co.edu.usa.ArtesaniasDeNuestraTierra.user.dto.UserMeDTO;
+
 import co.edu.usa.ArtesaniasDeNuestraTierra.user.dto.UserSignupDTO;
+import co.edu.usa.ArtesaniasDeNuestraTierra.user.services.UserService;
 import jakarta.validation.Valid;
 
 @RestController
@@ -25,57 +28,35 @@ public class UserController {
     private UserService userService;
    
     @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody @Valid UserSignupDTO user){
-
-        User newUser = User.builder()
-            .phone(user.getPhone())
-            .password(user.getPassword())
-            .name(user.getName())
-            .build();
-
-        if (userService.existsByPhone(newUser.getPhone())) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserSignupDTO userSignupDTO) throws Exception {
+        // Verificar si el username ya existe
+    	if (userService.getUser(userSignupDTO.getUsername()) != null) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "El username ya existe");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
-        
-        try {
-            newUser = userService.createUser(newUser);
-
-            return ResponseEntity.created(new URI("/api/user/" + newUser.getId())).build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+    	
+    	// Verificar si el telefono ya existe
+        if (userService.getPhone(userSignupDTO.getPhone()) != null) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "El telefono ya existe");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
+
+    	User newUser = new User();
+        newUser.setUsername(userSignupDTO.getUsername());
+        newUser.setPassword(userSignupDTO.getPassword());
+        newUser.setName(userSignupDTO.getName());
+        newUser.setPhone(userSignupDTO.getPhone());
+
+        // Crear el nuevo usuario
+        User createdUser = userService.createUser(newUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
-
-    @GetMapping("/me")
-    public ResponseEntity<UserMeDTO> me(){
-        
-        User user = userService.getUserAuthenticated();
-
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        UserMeDTO userResponse = UserMeDTO.builder()
-            .id(user.getId())
-            .phone(user.getPhone())
-            .password(user.getPassword() != null ? true : false)
-            .name(user.getName())
-            .build();
-
-        return ResponseEntity.ok(userResponse);
-    }
-   
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteUser(){
-        
-        User userDelete = userService.getUserAuthenticated();
-
-        if (userDelete == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        userService.deleteUser(userDelete);
-        
-        return ResponseEntity.ok().build();
-    }
+    
+    @GetMapping("/{username}")
+	public User getUser(@PathVariable("username") String username)
+	{
+		return userService.getUser(username);
+	}
 }
