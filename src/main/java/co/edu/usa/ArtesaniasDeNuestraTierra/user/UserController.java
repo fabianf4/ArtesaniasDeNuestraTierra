@@ -46,9 +46,9 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
     
-    @GetMapping("/{username}")
-	public User getUser(@PathVariable("username") String username)
+    @GetMapping("/{phone}")
+	public User getUser(@PathVariable("phone") String phone)
 	{
-		return userService.getUser(username);
+		return userService.getUser(phone);
 	}
 }
