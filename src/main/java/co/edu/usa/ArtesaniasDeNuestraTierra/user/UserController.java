@@ -28,23 +28,15 @@ public class UserController {
     private UserService userService;
    
     @PostMapping("/signup")
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserSignupDTO userSignupDTO) throws Exception {
-        // Verificar si el username ya existe
-    	if (userService.getUser(userSignupDTO.getUsername()) != null) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "El username ya existe");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
-        }
-    	
+    public ResponseEntity<Object> createUser(@Valid @RequestBody UserSignupDTO userSignupDTO) throws Exception {    	
     	// Verificar si el telefono ya existe
-        if (userService.getPhone(userSignupDTO.getPhone()) != null) {
+        if (userService.getUser(userSignupDTO.getPhone()) != null) {
             Map<String, String> errorResponse = new HashMap<>();
             errorResponse.put("error", "El telefono ya existe");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(errorResponse);
         }
 
     	User newUser = new User();
-        newUser.setUsername(userSignupDTO.getUsername());
         newUser.setPassword(userSignupDTO.getPassword());
         newUser.setName(userSignupDTO.getName());
         newUser.setPhone(userSignupDTO.getPhone());

@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public User getUser(String username) {
-		return userRepository.findByUsername(username);
+	public User getUser(String phone) {
+		return userRepository.findByPhone(phone);
 	}
 
 	@Override
@@ -42,11 +42,6 @@ public class UserServiceImpl implements UserService
 	@Override
 	public boolean existsByPhone(String phone) {
         return userRepository.existsByPhone(phone);
-	}
-
-	@Override
-	public User getPhone(String phone) {
-		return userRepository.findByPhone(phone);
 	}
 
 }

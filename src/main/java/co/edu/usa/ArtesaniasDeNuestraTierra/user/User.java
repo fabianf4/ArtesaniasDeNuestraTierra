@@ -28,9 +28,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    
-    @Column(unique = true)
-    private String username;
 
     @Column(unique = true)
     private String phone;
@@ -71,5 +68,10 @@ public class User implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return new HashSet<>();
+    }
+    
+    @Override
+    public String getUsername() {
+        return this.phone;
     }
 }

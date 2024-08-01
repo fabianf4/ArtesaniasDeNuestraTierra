@@ -2,7 +2,7 @@ package co.edu.usa.ArtesaniasDeNuestraTierra.jwt;
 
 public class JwtRequest
 {
-	private String username;
+	private String phone;
 	private String password;
 	
 	public JwtRequest()
@@ -10,19 +10,19 @@ public class JwtRequest
 		
 	}
 	
-	public JwtRequest(String username, String password)
+	public JwtRequest(String phone, String password)
 	{
-		this.username = username;
+		this.phone = phone;
 		this.password = password;
 	}
 	
-	public String getUsername()
+	public String getPhone()
 	{
-		return username;
+		return phone;
 	}
 	
-	public void setUsername(String username) {
-        this.username = username;
+	public void setPhone(String phone) {
+        this.phone = phone;
     }
 	
 	public String getPassword()

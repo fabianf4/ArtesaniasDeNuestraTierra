@@ -26,28 +26,26 @@ public class AuthenticationController {
 	private JwtUtils jwtUtils;
 	
 	@PostMapping("/generate-token")
-	public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception
-	{
-		try {
-			auth(jwtRequest.getUsername(), jwtRequest.getPassword());
-		}catch(Exception e) {
-			e.printStackTrace();
-			throw new Exception("Usuario no encontrado");
-		}
-		
-		UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getUsername());
-		String token = this.jwtUtils.generateToken(userDetails);
-		return ResponseEntity.ok(new JwtResponse(token));
-	}
+    public ResponseEntity<?> generateToken(@RequestBody JwtRequest jwtRequest) throws Exception {
+        try {
+            auth(jwtRequest.getPhone(), jwtRequest.getPassword());
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Exception("Usuario no encontrado");
+        }
+
+        UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getPhone());
+        String token = this.jwtUtils.generateToken(userDetails);
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
 	
-	private void auth(String username, String password) throws Exception
-	{
-		try {
-			authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-		}catch(DisabledException disabledException) {
-			throw new Exception("USUARIO DESHABILITADO: "+disabledException.getMessage());
-		}catch(BadCredentialsException badCredentialsException) {
-			throw new Exception("Credenciales invalidas: "+badCredentialsException.getMessage());
-		}
-	}
+	private void auth(String phone, String password) throws Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(phone, password));
+        } catch (DisabledException disabledException) {
+            throw new Exception("USUARIO DESHABILITADO: " + disabledException.getMessage());
+        } catch (BadCredentialsException badCredentialsException) {
+            throw new Exception("Credenciales invalidas: " + badCredentialsException.getMessage());
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package co.edu.usa.ArtesaniasDeNuestraTierra.user.services;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,12 +18,11 @@ public class UserDetailsServiceImpl implements UserDetailsService
 	private UserRepository userRepository;
 	
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
-	{
-		User user = this.userRepository.findByUsername(username);
-		if(user == null) {
-			throw new UsernameNotFoundException("Usuario no encontrado");
-		}
-		return user;
-	}
+    public UserDetails loadUserByUsername(String phone) throws UsernameNotFoundException {
+        User user = userRepository.findByPhone(phone);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found with phone: " + phone);
+        }
+        return new org.springframework.security.core.userdetails.User(user.getPhone(), user.getPassword(), new ArrayList<>());
+    }
 }
