@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.usa.ArtesaniasDeNuestraTierra.config.JwtUtils;
+import co.edu.usa.ArtesaniasDeNuestraTierra.user.User;
 import co.edu.usa.ArtesaniasDeNuestraTierra.user.services.UserDetailsServiceImpl;
 
 @RestController
@@ -37,8 +38,11 @@ public class AuthenticationController {
         }
 
         UserDetails userDetails = this.userDetailsServiceImpl.loadUserByUsername(jwtRequest.getPhone());
-        String token = this.jwtUtils.generateToken(userDetails);
-        return ResponseEntity.ok(new JwtResponse(token));
+        User user 				= (User) userDetails;
+        String token 			= this.jwtUtils.generateToken(userDetails);
+
+        JwtResponse jwtResponse = new JwtResponse(token, user.getPhone(), user.getId(), user.getName());
+        return ResponseEntity.ok(jwtResponse);
     }
 	
 	private void auth(String phone, String password) throws Exception {
