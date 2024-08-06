@@ -22,7 +22,7 @@ public class CityController
 	@Autowired
     private CityService cityService;
 
-    @GetMapping
+    @GetMapping("/")
     public List<City> getAllCities() {
         return cityService.getAllCities();
     }
@@ -35,26 +35,5 @@ public class CityController
         } else {
             return ResponseEntity.notFound().build();
         }
-    }
-
-    @PostMapping
-    public City saveCity(@RequestBody City city) {
-        return cityService.saveCity(city);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<City> updateCity(@PathVariable int id, @RequestBody City city) {
-        city.setId(id);
-        try {
-            return ResponseEntity.ok(cityService.updateCity(city));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCity(@PathVariable int id) {
-        cityService.deleteCity(id);
-        return ResponseEntity.noContent().build();
     }
 }
