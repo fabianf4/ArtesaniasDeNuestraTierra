@@ -22,4 +22,8 @@ public class CityService
     {
         return cityRepository.findById(id);
     }
+    
+    public List<City> getCitiesByRegionId(int regionId) {
+        return cityRepository.findByRegionId(regionId);
+    }
 }

@@ -47,7 +47,7 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .cors(cors -> cors.disable())
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/generate-token", "/api/user/signup", "/api/health", "/error/**", "/api/cities/", "/api/regions/", "/api/categories/", "/api/publications/", "/api/comments/").permitAll()
+            .requestMatchers("/generate-token", "/api/user/signup", "/api/health", "/error/**", "/api/cities/", "/api/regions/", "/api/categories/", "/api/publications/", "/api/comments/", "/api/cities/region/{regionId}").permitAll()
             .requestMatchers(
                     // Swagger UI v2
                     "/v2/api-docs",

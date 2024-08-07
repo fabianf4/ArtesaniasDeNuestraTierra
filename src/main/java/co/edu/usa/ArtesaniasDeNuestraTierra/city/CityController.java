@@ -38,4 +38,14 @@ public class CityController
             return ResponseEntity.notFound().build();
         }
     }
+    
+    @GetMapping("/region/{regionId}")
+    public ResponseEntity<List<City>> getCitiesByRegionId(@PathVariable int regionId) {
+        List<City> cities = cityService.getCitiesByRegionId(regionId);
+        if (!cities.isEmpty()) {
+            return ResponseEntity.ok(cities);
+        } else {
+            return ResponseEntity.noContent().build();
+        }
+    }
 }
