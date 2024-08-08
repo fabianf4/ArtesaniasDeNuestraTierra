@@ -53,7 +53,7 @@ public class Publication {
     @JoinColumn(name = "users_id", nullable = false)
     private User users;
 	
-	@Column(name = "stateDelete", nullable = false)
+	@Column(name = "state_delete", nullable = false)
 	private boolean stateDelete;
 	
 	@Column(name = "date_create", nullable = false)
