@@ -56,9 +56,9 @@ public class PublicationService {
         publication.setSummary(publicationDTO.getSummary());
         publication.setDescription(publicationDTO.getDescription());
         publication.setImage(publicationDTO.getImage());
-    	publication.setCategory(category);
-        publication.setCity(city);
-        publication.setUser(user);
+    	publication.setCategories(category);
+        publication.setCities(city);
+        publication.setUsers(user);
     	publication.setDateCreate(new Date());
     	publication.setDateUpdate(new Date());
     	publication.setStateDelete(false);
@@ -72,7 +72,7 @@ public class PublicationService {
                     publication.setSummary(publicationUpdate.getSummary());
                     publication.setDescription(publicationUpdate.getDescription());
                     publication.setImage(publicationUpdate.getImage());
-                    publication.setUser(user);
+                    publication.setUsers(user);
                     publication.setDateUpdate(new Date());
                     return publicationRepository.save(publication);
                 })

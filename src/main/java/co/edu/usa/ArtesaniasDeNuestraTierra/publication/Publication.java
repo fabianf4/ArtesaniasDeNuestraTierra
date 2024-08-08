@@ -42,16 +42,16 @@ public class Publication {
 	private String image;
 	
 	@ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @JoinColumn(name = "categories_id")
+    private Category categories;
 
     @ManyToOne
-    @JoinColumn(name = "city_id")
-    private City city;
+    @JoinColumn(name = "cities_id")
+    private City cities;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "users_id", nullable = false)
+    private User users;
 	
 	@Column(name = "stateDelete", nullable = false)
 	private boolean stateDelete;
