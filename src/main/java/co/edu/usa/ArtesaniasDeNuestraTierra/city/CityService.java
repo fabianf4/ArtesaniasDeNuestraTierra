@@ -23,7 +23,7 @@ public class CityService
         return cityRepository.findById(id);
     }
     
-    public List<City> getCitiesByRegionId(int regionId) {
-        return cityRepository.findByRegionId(regionId);
+    public List<City> findByRegions_Id(int regionId) {
+        return cityRepository.findByRegions_Id(regionId);
     }
 }

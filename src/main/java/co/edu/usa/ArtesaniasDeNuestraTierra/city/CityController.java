@@ -41,7 +41,7 @@ public class CityController
     
     @GetMapping("/region/{regionId}")
     public ResponseEntity<List<City>> getCitiesByRegionId(@PathVariable int regionId) {
-        List<City> cities = cityService.getCitiesByRegionId(regionId);
+        List<City> cities = cityService.findByRegions_Id(regionId);
         if (!cities.isEmpty()) {
             return ResponseEntity.ok(cities);
         } else {

@@ -31,6 +31,6 @@ public class City
 	private String name;
     
     @ManyToOne
-    @JoinColumn(name = "region_id")
-    private Region region;
+    @JoinColumn(name = "regions_id")
+    private Region regions;
 }
