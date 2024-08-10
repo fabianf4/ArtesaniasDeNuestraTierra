@@ -16,17 +16,24 @@ import co.edu.usa.ArtesaniasDeNuestraTierra.user.UserRepository;
 @Service
 public class PublicationService {
 	
-	@Autowired
     private PublicationRepository publicationRepository;
-
-    @Autowired
+	
     private UserRepository userRepository;
-
-    @Autowired
+    
     private CategoryRepository categoryRepository;
-
-    @Autowired
+    
     private CityRepository cityRepository;
+    
+    @Autowired
+    public PublicationService(PublicationRepository publicationRepository,
+                              UserRepository userRepository,
+                              CategoryRepository categoryRepository,
+                              CityRepository cityRepository) {
+        this.publicationRepository = publicationRepository;
+        this.userRepository = userRepository;
+        this.categoryRepository = categoryRepository;
+        this.cityRepository = cityRepository;
+    }
 	
 	
     public List<Publication> listPublication() {
