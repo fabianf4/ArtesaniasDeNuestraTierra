@@ -23,11 +23,7 @@ import co.edu.usa.ArtesaniasDeNuestraTierra.user.User;
 public class PublicationController {
 	
 	@Autowired
-	private PublicationService publicationService;	
-	
-    public PublicationController(PublicationService publicationService) {
-        this.publicationService = publicationService;
-    }
+	private PublicationService publicationService;
 	
     @GetMapping("/")
     public List<Publication> listCategories() {
