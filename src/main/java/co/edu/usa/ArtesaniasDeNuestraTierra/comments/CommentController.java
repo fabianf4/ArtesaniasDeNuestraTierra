@@ -30,9 +30,9 @@ public class CommentController {
         return commentService.listComment();
     }
 
-    @GetMapping("/{id}")
-    public Comment getCommentPorId(@PathVariable("id") int id) {
-        return commentService.getCommentById(id);
+    @GetMapping("/{publicationId}")
+    public List<Comment> getCommentsByPublication(@PathVariable("publicationId") int publicationId) {
+        return commentService.getCommentsByPublicationId(publicationId);
     }
 
     @PostMapping("/{userId}/{publicationId}")

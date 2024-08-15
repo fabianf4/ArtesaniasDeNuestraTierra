@@ -22,7 +22,7 @@ public class CommentService {
 
     @Autowired
     private PublicationRepository publicationRepository;
-	
+
     public List<Comment> listComment() {
         return commentRepository.findAll();
     }
@@ -30,6 +30,10 @@ public class CommentService {
     public Comment getCommentById(int id) {
         return commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("comment not found with id: " + id));
+    }
+
+    public List<Comment> getCommentsByPublicationId(int publicationId) {
+        return commentRepository.findByPublicationId(publicationId);
     }
 
     public Comment createComment(CommentDTO commentDTO, int userId, int publicationId) {
