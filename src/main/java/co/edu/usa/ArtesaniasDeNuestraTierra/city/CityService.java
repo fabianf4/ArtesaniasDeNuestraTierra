@@ -22,31 +22,8 @@ public class CityService
     {
         return cityRepository.findById(id);
     }
-
-    public City saveCity(City city)
-    {
-    	city.setStateDelete(false);
-    	city.setDateCreate(new Date());
-        city.setDateUpdate(new Date());
-        return cityRepository.save(city);
-    }
-
-    public City updateCity(City city) {
-        Optional<City> existingCity = cityRepository.findById(city.getId());
-        if (existingCity.isPresent()) {
-            City updatedCity = existingCity.get();
-            updatedCity.setName(city.getName());
-            updatedCity.setStateDelete(city.isStateDelete());
-            updatedCity.setDateCreate(city.getDateCreate());
-            updatedCity.setDateUpdate(city.getDateUpdate());
-            return cityRepository.save(updatedCity);
-        } else {
-            throw new RuntimeException("City not found with id " + city.getId());
-        }
-    }
-
-    public void deleteCity(int id)
-    {
-        cityRepository.deleteById(id);
+    
+    public List<City> findByRegions_Id(int regionId) {
+        return cityRepository.findByRegions_Id(regionId);
     }
 }

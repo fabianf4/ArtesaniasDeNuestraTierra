@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Entity(name = "region")
+@Entity(name = "regions")
 public class Region
 {
 	@Id
@@ -32,13 +32,4 @@ public class Region
 	
 	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@Column(name = "state_delete", nullable = false)
-    private boolean stateDelete;
-
-    @Column(name = "date_create", nullable = false)
-    private Date dateCreate;
-
-    @Column(name = "date_update", nullable = false)
-    private Date dateUpdate;
 }

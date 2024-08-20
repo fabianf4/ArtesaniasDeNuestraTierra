@@ -20,30 +20,4 @@ public class RegionService {
     public Optional<Region> getRegionById(int id) {
         return regionRepository.findById(id);
     }
-
-    public Region saveRegion(Region region) {
-    	region.setStateDelete(false);
-        region.setDateCreate(new Date());
-        region.setDateUpdate(new Date());
-        return regionRepository.save(region);
-    }
-
-    public Region updateRegion(Region region) {
-        Optional<Region> existingRegion = regionRepository.findById(region.getId());
-        if (existingRegion.isPresent()) {
-            Region updatedRegion = existingRegion.get();
-            updatedRegion.setCode(region.getCode());
-            updatedRegion.setName(region.getName());
-            updatedRegion.setStateDelete(region.isStateDelete());
-            updatedRegion.setDateCreate(region.getDateCreate());
-            updatedRegion.setDateUpdate(region.getDateUpdate());
-            return regionRepository.save(updatedRegion);
-        } else {
-            throw new RuntimeException("Region not found with id " + region.getId());
-        }
-    }
-
-    public void deleteRegion(int id) {
-        regionRepository.deleteById(id);
-    }
 }
