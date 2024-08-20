@@ -3,6 +3,8 @@ package co.edu.usa.ArtesaniasDeNuestraTierra.category;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/category")
+@RequestMapping("api/categories")
+@CrossOrigin("*")
 public class CategoryController {
 	
 	@Autowired
@@ -39,9 +42,10 @@ public class CategoryController {
         return categoryService.updateCategory(id, categoryUpdate);
     }
 
-    @DeleteMapping("/delete")
-    public void deleteCategory(@PathVariable("category") Category category) {
-    	categoryService.deleteCategory(category);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable int id) {
+        categoryService.deleteCategory(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

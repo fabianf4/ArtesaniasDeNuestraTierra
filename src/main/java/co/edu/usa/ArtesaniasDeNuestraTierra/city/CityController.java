@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/cities")
+@CrossOrigin("*")
 public class CityController
 {
 	@Autowired
     private CityService cityService;
 
-    @GetMapping
+    @GetMapping("/")
     public List<City> getAllCities() {
         return cityService.getAllCities();
     }
@@ -36,25 +38,14 @@ public class CityController
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping
-    public City saveCity(@RequestBody City city) {
-        return cityService.saveCity(city);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<City> updateCity(@PathVariable int id, @RequestBody City city) {
-        city.setId(id);
-        try {
-            return ResponseEntity.ok(cityService.updateCity(city));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+    
+    @GetMapping("/region/{regionId}")
+    public ResponseEntity<List<City>> getCitiesByRegionId(@PathVariable int regionId) {
+        List<City> cities = cityService.findByRegions_Id(regionId);
+        if (!cities.isEmpty()) {
+            return ResponseEntity.ok(cities);
+        } else {
+            return ResponseEntity.noContent().build();
         }
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCity(@PathVariable int id) {
-        cityService.deleteCity(id);
-        return ResponseEntity.noContent().build();
     }
 }

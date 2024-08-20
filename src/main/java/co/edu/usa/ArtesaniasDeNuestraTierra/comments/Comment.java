@@ -28,17 +28,17 @@ public class Comment {
     private int id;
 	
 	@ManyToOne
-    @JoinColumn(name = "publication_id", nullable = false)
+    @JoinColumn(name = "posts_id", nullable = false)
     private Publication publication;
 	
 	@ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "users_id", nullable = false)
     private User user;
 	
 	@Column(name = "text", nullable = false)
 	private String text;
 	
-	@Column(name = "stateDelete", nullable = false)
+	@Column(name = "state_delete", nullable = false)
 	private boolean stateDelete;
 	
 	@Column(name = "date_create", nullable = false)
