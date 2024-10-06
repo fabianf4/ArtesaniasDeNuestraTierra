@@ -13,5 +13,5 @@ public class PublicationDTO{
 	private String title;
     private String summary;
     private String description;
-    private String image;
+    private String imageBase64;
 }
